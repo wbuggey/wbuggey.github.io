@@ -1,34 +1,34 @@
-$(document).ready(function() {
-  
-  $( ".c-device__power" ).click(function(){
-    $( ".c-device" ).addClass("c-device--teeter");
-    $( ".c-device__power" ).addClass("c-device__power--teeter");
-    setTimeout(function() {
-      $( ".c-device" ).removeClass("c-device--teeter");
-      $( ".c-device__power" ).removeClass("c-device__power--teeter");
-    }, 1000 );
+$(document).ready(function () {
+
+  $(".c-device__power").click(function () {
+    $(".c-device").addClass("c-device--teeter");
+    $(".c-device__power").addClass("c-device__power--teeter");
+    setTimeout(function () {
+      $(".c-device").removeClass("c-device--teeter");
+      $(".c-device__power").removeClass("c-device__power--teeter");
+    }, 1000);
   });
-  
-  $( ".js-scrolltocontact" ).click(function(e){
+
+  $(".js-scrolltocontact").click(function (e) {
     e.preventDefault();
-    $( "html, body" ).animate({
-        scrollTop: $( "#js-contact" ).offset().top -135
+    $("html, body").animate({
+      scrollTop: $("#js-contact").offset().top - 135
     }, 500);
   });
-  
-  $( ".js-scrolltotop" ).click(function(e){
+
+  $(".js-scrolltotop").click(function (e) {
     e.preventDefault();
-    $( "html, body" ).animate({
-        scrollTop: $( "#js-device" ).offset().top -0
+    $("html, body").animate({
+      scrollTop: $("#js-top").offset().top - 0
     }, 500);
   });
-  
+
 });
 
 
 // Formspree -------------------------------------------------------------------
 
-window.addEventListener("DOMContentLoaded", function() {
+window.addEventListener("DOMContentLoaded", function () {
 
   var form = document.getElementById("js-contactform");
   var status = document.getElementById("js-formstatus");
@@ -37,15 +37,15 @@ window.addEventListener("DOMContentLoaded", function() {
   function success() {
     form.reset();
     status.innerHTML = "Thanks!";
-    window.scrollTo(0,document.body.scrollHeight);
+    window.scrollTo(0, document.body.scrollHeight);
   }
 
   function error() {
     status.innerHTML = "Oops! There was a problem.";
-    window.scrollTo(0,document.body.scrollHeight);
+    window.scrollTo(0, document.body.scrollHeight);
   }
 
-  form.addEventListener("submit", function(ev) {
+  form.addEventListener("submit", function (ev) {
     ev.preventDefault();
     var data = new FormData(form);
     if (!check.checked) {
@@ -58,7 +58,7 @@ function ajax(method, url, data, success, error) {
   var xhr = new XMLHttpRequest();
   xhr.open(method, url);
   xhr.setRequestHeader("Accept", "application/json");
-  xhr.onreadystatechange = function() {
+  xhr.onreadystatechange = function () {
     if (xhr.readyState !== XMLHttpRequest.DONE) return;
     if (xhr.status === 200) {
       success(xhr.response, xhr.responseType);
