@@ -55,6 +55,8 @@ li::marker {
 
 a {
   color: rgb(61, 90, 254);
+}
+a:not(:hover) {
   text-decoration: none;
 }
 
