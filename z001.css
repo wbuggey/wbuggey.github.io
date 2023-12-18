@@ -142,6 +142,18 @@ a:not(:hover) {
 .c-device {
   box-sizing: border-box;
   max-width: 720px;
+  position: relative;
+}
+.c-device::before {
+  content: "";
+  position: absolute;
+  background: linear-gradient(to top,rgb(232, 234, 246),rgba(255,255,255,0));
+  width: 100vw;
+  height: 100%;
+  bottom: 50%;
+  left: 50%;
+  z-index: -1;
+  transform: translateX(-50%) skew(0, -3deg);
 }
 
 .c-device__top {
