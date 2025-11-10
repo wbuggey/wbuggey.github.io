@@ -1,6 +1,11 @@
+:root {
+  --systemtable-spacing-x: 30px;
+}
+
 html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -8,7 +13,22 @@ body {
   font-family: 'IBM Plex Sans', sans-serif;
   color: rgb(54, 54, 54);
   margin: 0;
-  overflow-x: hidden
+  width: 100%;
+  overflow-x: hidden;
+  background-color: white;
+}
+
+body::before {
+  content: "";
+  width: 640px;
+  height: 100vh;
+  position: fixed;
+  border-left: 6px solid rgb(247, 248, 249);
+  border-right: 6px solid rgb(247, 248, 249);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: -1;
+  /* box-shadow: inset 0px 0px 15px rgb(233, 242, 255); */
 }
 
 h1,
@@ -30,6 +50,15 @@ h5 {
 p,
 li {
   font-size: 1.5rem;
+}
+
+@media (max-width: 575px) {
+
+  p,
+  li {
+    font-size: 1.4rem;
+  }
+
 }
 
 h1,
@@ -132,6 +161,26 @@ a {
 }
 
 
+.c-handdrawnunderline {
+  position: relative;
+  z-index: 0;
+}
+
+.c-handdrawnunderline::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 3.2rem;
+  left: 0;
+  background: url(static/underline.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  transform: rotate(3deg);
+  z-index: -1;
+}
+
 .l-device {
   padding: 165px 1.5rem 4rem;
   display: flex;
@@ -143,10 +192,11 @@ a {
   max-width: 720px;
   position: relative;
 }
+
 .c-device::before {
   content: "";
   position: absolute;
-  background: linear-gradient(to top,rgb(232, 234, 246),rgba(255,255,255,0));
+  background: linear-gradient(to top, rgb(232, 234, 246), rgba(255, 255, 255, 0));
   width: 100vw;
   height: 100%;
   bottom: 50%;
@@ -173,7 +223,7 @@ a {
   border: 4px solid rgb(189, 189, 189);
   border-radius: 30px 30px 0 0;
   padding: 1.875rem;
-  background: rgb(245, 245, 245);
+  background: rgb(241, 242, 244);
 }
 
 .c-device__content {
@@ -183,12 +233,31 @@ a {
   column-gap: 20px;
 }
 
+.c-device__imagecontainer {
+  position: relative;
+  width: 145px;
+  /* opacity: 0.8; */
+}
+
+.c-device__imagecontainer::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: calc(100% + 4rem);
+  top: -4rem;
+  transform: rotate(-1deg) skew(0, -4deg);
+  /* opacity: 0.8; */
+  /* mix-blend-mode: overlay; */
+  background-image: url(static/bg_specks.png), linear-gradient(to bottom, rgb(255, 213, 210), rgb(255, 236, 235));
+}
+
 .c-device__imagewrapper {
   position: relative;
   min-width: 200px;
   min-height: 200px;
   width: 200px;
   height: 200px;
+  margin: 10px
 }
 
 .c-device__imagewrapper::before {
@@ -199,21 +268,46 @@ a {
   border-radius: 50%;
   top: 0;
   left: 0;
-  background: linear-gradient(to right, #1a237e, #601b81, #8f047b, #b6006e, #d4045c, #e93247, #f4582e, #f57c00);
+  /* background: linear-gradient(to right, #1a237e, #601b81, #8f047b, #b6006e, #d4045c, #e93247, #f4582e, #f57c00); */
   box-shadow: 0 0 15px rgba(0, 0, 0, .25);
+  border: 1px solid #f57c00;
+}
+
+
+@media (max-width: 767px) {
+  .c-device__imagecontainer {
+    width: 100px;
+  }
+
+  .c-device__imagecontainer::before {
+    height: 100%;
+    top: 0;
+  }
+
+  .c-device__imagewrapper {
+    margin: 2rem 10px;
+  }
+}
+
+@media (max-width: 575px) {
+  .c-device__imagecontainer {
+    width: 170px;
+  }
 }
 
 .c-device__image {
+  border: 2px solid #f4582e;
   border-radius: 50%;
   width: 196px;
   height: 196px;
   position: absolute;
   top: 2px;
-  left: 2px;
-}
-
-.c-device__text {
-  font-size: 1.5rem;
+  left: 7px;
+  background-color: rgba(255, 255, 255, .6);
+  /* border: 10px solid;
+  border-image-slice: 1;
+  border-width: 5px;
+  border-image-source: linear-gradient(to right, #1a237e, #601b81, #8f047b, #b6006e, #d4045c, #e93247, #f4582e, #f57c00); */
 }
 
 .c-device__bottom {
@@ -250,6 +344,10 @@ a {
 
 .c-device__power {
   cursor: pointer;
+}
+
+.c-device__power:hover {
+  filter: drop-shadow(0 0 14px rgb(226, 72, 61));
 }
 
 @-webkit-keyframes timing {
@@ -334,6 +432,7 @@ a {
 
   .c-device__middle {
     border-radius: 0;
+    padding: 1.875rem 1rem;
   }
 
   .c-device__content {
@@ -358,19 +457,100 @@ a {
   max-width: 600px;
 }
 
-.l-logotable {
-  margin-top: 1rem;
-  margin-bottom: 4rem;
+.c-systemtable {
+  width: 600px;
+  table-layout: fixed;
+  position: relative;
+  display: block;
 }
 
-/* .c-logotable {
+.c-systemtable::before,
+.c-systemtable::after {
+  position: absolute;
+  content: "";
+  width: 1px;
+  height: 100%;
+  background-color: rgb(125, 129, 138);
+  top: 0;
+  left: calc(100% / 3);
+}
 
-} */
+.c-systemtable::before {
+  left: calc(100% / 3);
+  transform: translateX(calc(var(--systemtable-spacing-x) * -1 / 4));
+}
+
+.c-systemtable::after {
+  left: calc(100% * 2 / 3);
+  transform: translateX(calc(var(--systemtable-spacing-x) / 4));
+}
+
+.c-systemtable__cell {
+  width: calc(100% / 3);
+  padding: 15px 5px;
+  background-color: rgb(247, 248, 249);
+  border: calc(var(--systemtable-spacing-x) / 2) solid white;
+  text-align: center;
+}
+
+.c-systemtable__cell--headercell {
+  background-color: transparent;
+  padding: 0;
+  border-top: none;
+  border-bottom: none;
+}
+
+.c-systemtable__cell:first-child {
+  border-left: none;
+  border-right-width: var(--systemtable-spacing-x);
+}
+
+.c-systemtable__cell:last-child {
+  border-left-width: var(--systemtable-spacing-x);
+  border-right: none;
+}
+
+.c-systemtable__row:last-child .c-systemtable__cell {
+  border-bottom: none;
+}
+
+.c-systemtable__logo {
+  display: inline-block;
+  max-width: 100%;
+  max-height: 50px;
+}
+
+@media (max-width: 575px) {
+  .c-systemtable {
+    --systemtable-spacing-x: 15px;
+    margin: 0 var(--systemtable-spacing-x);
+  }
+
+  .c-systemtable__cell--headertext::before {
+    content: "\000AIntegrations";
+    color: transparent;
+    display: block;
+    height: 0;
+  }
+}
+
+.l-logotable {
+  /* margin-top: 1rem; */
+  margin-bottom: 4rem;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.c-logotable {
+  max-width: 900px;
+}
+
 .c-logotable__row {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-  row-gap: 1.5rem;
+  /* row-gap: 1.5rem; */
   /* Only impacts when contents wrap */
 }
 
@@ -379,10 +559,11 @@ a {
   flex-flow: row wrap;
   justify-content: center;
   align-items: stretch;
-  width: 250px;
+  width: 25%;
   padding: 10px 0;
   position: relative;
-  background: rgb(245, 245, 245);
+  background: rgb(247, 248, 249);
+  box-sizing: border-box;
 }
 
 .c-logotable__box:first-child {
@@ -395,7 +576,7 @@ a {
 
 .c-logotable__box--leftheader {
   justify-content: flex-start;
-  width: 215px;
+  /* width: 215px; */
   padding-left: 10px;
   font-weight: 600;
 }
@@ -422,11 +603,12 @@ a {
   background: rgb(238, 238, 238);
   z-index: 2;
   position: relative;
+  align-self: end;
 }
 
 .c-logotable__box--leftheader .c-logotable__logowrapper {
   justify-content: flex-start;
-  background: rgb(245, 245, 245);
+  background: rgb(247, 248, 249);
   padding-left: 10px;
 }
 
@@ -456,25 +638,42 @@ a {
 
 .c-logotable__box:not(:first-child) .c-logotable__logowrapper::before,
 .c-logotable__box:not(:last-child) .c-logotable__logowrapper::after {
-  background: rgb(245, 245, 245);
+  background: rgb(247, 248, 249);
 }
 
-@media (max-width: 991px) {
+.c-logotable__box.c-logotable__box--leftheader .c-logotable__logowrapper::after {
+  background: transparent;
+}
+
+.c-logotable__logo {
+  padding: 0 10px;
+  box-sizing: border-box;
+  max-width: calc(100% - 20px);
+  max-height: 100%;
+}
+
+@media (max-width: 575px) {
   .c-logotable__row {
-    padding: 0 0 3rem;
+    margin-bottom: 1rem;
   }
 
   .c-logotable__box {
-    width: 100%;
-    background: none;
-    padding: 0 2rem;
+    width: calc(100% / 3);
+    /* background: none;
+    padding: 0 2rem; */
+  }
+
+  .c-logotable__row:last-child .c-logotable__box {
+    padding-bottom: 10px;
   }
 
   .c-logotable__topheader {
     text-transform: uppercase;
-    color: rgb(158, 158, 158);
+    color: rgb(133, 144, 162);
     font-weight: 600;
     letter-spacing: 1px;
+    margin-bottom: 10px;
+    font-size: .8rem;
   }
 
   .c-logotable__box:not(:first-child) .c-logotable__topheader {
@@ -486,14 +685,17 @@ a {
   }
 
   .c-logotable__box--leftheader {
+    width: 100%;
     text-align: center;
     font-size: 1.5rem;
     font-weight: 600;
+    padding-left: unset;
   }
 
   .c-logotable__box--leftheader .c-logotable__logowrapper {
     justify-content: center;
     background: none;
+    height: unset;
   }
 
   .c-logotable__largeonly {
@@ -501,7 +703,8 @@ a {
   }
 
   .c-logotable__logowrapper {
-    background: linear-gradient(to right, transparent, rgb(245, 245, 245), transparent)
+    background: linear-gradient(to right, transparent, rgb(247, 248, 249), transparent);
+    height: 50px;
   }
 
   .c-logotable__box:not(:first-child)::before,
@@ -510,7 +713,35 @@ a {
   .c-logotable__box .c-logotable__logowrapper::after {
     content: none;
   }
+
+  .c-logotable__logo.c-logotable__logo--boostsmall {
+    padding: 0;
+  }
 }
+
+.l-banner {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 4rem;
+  padding: 0 1.5rem;
+}
+
+.c-banner {
+  max-width: 720px;
+  width: 720px;
+  aspect-ratio: 4;
+  border: 3px solid rgb(98, 111, 134);
+  border-radius: 30px;
+  background-image: url(static/LBW_Banner.svg);
+  background-size: cover;
+  background-position: right;
+  box-shadow: rgb(179, 185, 196) 5px 5px 0;
+}
+
+.c-banner:hover {
+  filter: contrast(120%);
+}
+
 
 
 .l-cases {
@@ -547,7 +778,7 @@ a {
 
 .c-cases__part:hover .c-cases__top,
 .c-cases__part:hover .c-cases__bottom {
-  background: rgb(245, 245, 245);
+  background: rgb(247, 248, 249);
 }
 
 .c-cases__top,
@@ -622,15 +853,17 @@ a {
   column-gap: 1.5rem;
   row-gap: 1rem;
 }
+
 .c-techstack {
   flex-flow: column;
 }
+
 .c-techstack__row {
   flex-flow: row wrap;
 }
 
 .c-techstack__card {
-  background: rgb(245, 245, 245);
+  background: rgb(247, 248, 249);
   padding: .5rem;
   width: 100px;
   text-align: center;
@@ -655,7 +888,7 @@ a {
 }
 
 .c-products__card {
-  background: rgb(245, 245, 245);
+  background: rgb(247, 248, 249);
   padding: 1rem;
   width: 300px;
 }
@@ -680,14 +913,14 @@ a {
 .l-contact {
   padding: 0 15px 30px;
   position: relative;
-  background: rgb(245, 245, 245);
+  background: rgb(247, 248, 249);
 }
 
 .l-contact::before {
   content: "";
   display: block;
   position: absolute;
-  background: rgb(245, 245, 245);
+  background: rgb(247, 248, 249);
   width: 100vw;
   height: 100%;
   top: -5rem;
@@ -764,8 +997,16 @@ a {
   background: rgb(48, 63, 159);
 }
 
+.h-grey {
+  color: rgb(189, 189, 189);
+}
+
 .h-colour2 {
   color: rgb(255, 230, 0);
+}
+
+.h-normalweight {
+  font-weight: 400;
 }
 
 .c-footer {
