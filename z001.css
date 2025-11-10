@@ -487,6 +487,7 @@ a {
 
 .c-systemtable__cell {
   width: calc(100% / 3);
+  height: 60px;
   padding: 15px 5px;
   background-color: rgb(247, 248, 249);
   border: calc(var(--systemtable-spacing-x) / 2) solid white;
